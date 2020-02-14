@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -48,7 +49,11 @@ public class BlurWorker extends Worker {
             WorkerUtils.makeStatusNotification("Output is "
             + outputUri.toString(), applicationContext);
 
-            return Result.success();
+            Data outputData = new Data.Builder()
+                    .putString(Constants.KEY_IMAGE_URI, outputUri.toString())
+                    .build();
+
+            return Result.success(outputData);
         } catch (Throwable throwable) {
             Log .e(TAG, "Error applying blur", throwable);
             return Result.failure();
