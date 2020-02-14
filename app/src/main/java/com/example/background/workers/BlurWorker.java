@@ -3,12 +3,15 @@ package com.example.background.workers;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.background.R;
+
+import java.io.FileNotFoundException;
 
 public class BlurWorker extends Worker {
     public BlurWorker(
@@ -29,7 +32,11 @@ public class BlurWorker extends Worker {
                     applicationContext.getResources(),
                     R.drawable.test
             );
-            Bitmap output = WorkerUtils.b
+            Bitmap output = WorkerUtils.blurBitmap(picture, applicationContext);
+
+            Uri outputUri = WorkerUtils.writeBitmapToFile(applicationContext,output);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
         return null;
