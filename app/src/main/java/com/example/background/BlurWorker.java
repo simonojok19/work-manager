@@ -15,6 +15,8 @@ public class BlurWorker extends Worker {
         super(context, workerParams);
     }
 
+    private static final String TAG = BlurWorker.class.getSimpleName();
+
     @NonNull
     @Override
     public Result doWork() {
