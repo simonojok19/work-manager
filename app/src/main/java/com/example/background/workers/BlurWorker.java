@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.example.background.Constants;
 import com.example.background.R;
 
 import java.io.FileNotFoundException;
@@ -27,6 +28,7 @@ public class BlurWorker extends Worker {
     @Override
     public Result doWork() {
         Context applicationContext = getApplicationContext();
+        String resourceUri = getInputData().getString(Constants.KEY_IMAGE_URI);
 
         try {
             Bitmap picture = BitmapFactory.decodeResource(
