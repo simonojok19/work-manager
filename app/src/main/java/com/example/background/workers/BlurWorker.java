@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -35,10 +36,13 @@ public class BlurWorker extends Worker {
             Bitmap output = WorkerUtils.blurBitmap(picture, applicationContext);
 
             Uri outputUri = WorkerUtils.writeBitmapToFile(applicationContext,output);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+            WorkerUtils.makeStatusNotification("Output is "
+            + outputUri.toString(), applicationContext);
 
-        return null;
+            return Result.success();
+        } catch (Throwable throwable) {
+            Log .e(TAG, "Error applying blur", throwable);
+            return Result.failure();
+        }
     }
 }
