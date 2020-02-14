@@ -31,10 +31,7 @@ public class BlurWorker extends Worker {
         String resourceUri = getInputData().getString(Constants.KEY_IMAGE_URI);
 
         try {
-            Bitmap picture = BitmapFactory.decodeResource(
-                    applicationContext.getResources(),
-                    R.drawable.test
-            );
+
             Bitmap output = WorkerUtils.blurBitmap(picture, applicationContext);
 
             Uri outputUri = WorkerUtils.writeBitmapToFile(applicationContext,output);
