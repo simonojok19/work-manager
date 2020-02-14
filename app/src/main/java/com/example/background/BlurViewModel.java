@@ -18,6 +18,7 @@ package com.example.background;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -64,6 +65,14 @@ public class BlurViewModel extends AndroidViewModel {
      */
     Uri getImageUri() {
         return mImageUri;
+    }
+
+    private Data createInputDataUri() {
+        Data.Builder builder = new Data.Builder();
+        if (mImageUri != null) {
+            builder.putString(Constants.KEY_IMAGE_URI, mImageUri.toString());
+        }
+        return builder.build();
     }
 
 }
