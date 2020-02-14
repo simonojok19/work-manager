@@ -20,8 +20,9 @@ public class BlurWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        Context applicationContext = getApplicationContext();
         Bitmap picture = BitmapFactory.decodeResource(
-                getApplicationContext().getResources(),
+                applicationContext.getResources(),
                 R.drawable.test
         );
         return null;
